@@ -48,4 +48,9 @@ public class BackgroundParallax : MonoBehaviour
 		// Set the previousCamPos to the camera's position at the end of this frame.
 		previousCamPos = cam.position;
 	}
+	
+	
+	
+	
+	
 }
