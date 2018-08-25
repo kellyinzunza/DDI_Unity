@@ -14,21 +14,37 @@ public class Pauser : MonoBehaviour {
 			pausePanel.SetActive(paused);
 		}
 
-		if(paused)
-			Time.timeScale = 0; //lentp
-		else
-			Time.timeScale = 1;	//rapido
+		if(paused){
+			Time.timeScale = 0; //lentp pausa
+			pausePanel.SetActive(paused);
+		}
+		else{
+			Time.timeScale = 1;	//rapido juegas
+			pausePanel.SetActive(paused);
+		}
 	}
 	
 	public void ContinueGame(){
+			
+			Time.timeScale = 1;	//rapido juegas
 			Debug.Log("Continuar...");
+			paused = !paused; //con la tecla t
 			pausePanel.SetActive(paused);
-		
+		if(paused){
+			Time.timeScale = 0; //lentp pausa
+			pausePanel.SetActive(paused);
+		}
+		else{
+			Time.timeScale = 1;	//rapido juegas
+			pausePanel.SetActive(paused);
+		}
+			
+			
 	}
 	
 	public void ResetGame(){
 			Debug.Log("ResetGame...");
-			SceneManager.LoadScene(0);
+			//SceneManager.LoadScene(0);
 		
 	}
 	
@@ -36,6 +52,7 @@ public class Pauser : MonoBehaviour {
 			Debug.Log("Mute music");
 		
 	}
+	
 	
 	
 }
