@@ -2,30 +2,37 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+[RequireComponent(typeof(AudioSource))]
 
 public class Pauser : MonoBehaviour {
 	private bool paused = false;
 	public GameObject pausePanel;
 	public GameObject pauseButton;
-	//private AudioSource audio;
-	//public GameObject audioSource;
-	//bool soundToggle = true;
+	public GameObject panel2;
+	public AudioSource audioSource;
+	bool soundToggle = true;
+	public Gun armita;
 
 	
 	
 	// Update is called once per frame
 	void Update () {
+	
+		audioSource = GetComponent<AudioSource>();
+		
 		if(Input.GetKeyUp(KeyCode.P))
 		{
 			
 			paused = !paused; //con la tecla t
 			pausePanel.SetActive(paused);
+			pauseButton.gameObject.SetActive(false);
+			
 		}
 
 		if(paused){
 			Time.timeScale = 0; //lentp pausa
 			pausePanel.SetActive(paused);
-			//pauseButton.gameObject.SetActive(false); 
+			armita.GetComponent<AudioSource>().Pause();
 		}
 		else{
 			Time.timeScale = 1;	//rapido juegas
@@ -34,7 +41,7 @@ public class Pauser : MonoBehaviour {
 	}
 	
 	public void ContinueGame(){
-			
+			 
 				Time.timeScale = 1;	//rapido juegas
 			Debug.Log("Continuar...");
 			paused = !paused; //con la tecla t
@@ -42,6 +49,7 @@ public class Pauser : MonoBehaviour {
 		if(paused){
 			Time.timeScale = 0; //lentp pausa
 			pausePanel.SetActive(paused);
+			//pauseButton.gameObject.SetActive(false);
 		}
 		else{
 			Time.timeScale = 1;	//rapido juegas
@@ -53,25 +61,22 @@ public class Pauser : MonoBehaviour {
 	
 	public void ResetGame(){
 			Debug.Log("ResetGame...");
-			//SceneManager.LoadScene(0);
 			SceneManager.LoadScene(0);
 	}
 	
 	public void MuteMusic(){
 		 
-        /*soundToggle = !soundToggle;
-		 audio = GetComponent<AudioSource> ();
-		 if(soundToggle)
-		 {
-		  // audioSource.SetActive(true);
-		 audio.Play ();
-		 }
-		 else{
-		  // audioSo
+       soundToggle = !soundToggle;
+	if(!soundToggle)
+	{
+	   audioSource.mute = !audioSource.mute;
+	}
+	else
+		{
 		
-		audio.Pause();
-		 }
-    */
+		audioSource.mute = false;
+		
+		}
 
 	}
 	
@@ -79,18 +84,20 @@ public class Pauser : MonoBehaviour {
 		
 		paused = !paused; 
 		pausePanel.SetActive(paused);
-		//pauseButton.gameObject.SetActive(false); 
+		 
 		
-		if(paused){
+		if(!paused){
+			panel2.gameObject.SetActive(false); //no se me desactiva.
 			Time.timeScale = 0; //pausa
-			pausePanel.SetActive(paused);
-
+			pausePanel.SetActive(!paused);
+			panel2.SetActive(paused);
+			armita.GetComponent<AudioSource>().Pause();
 			
 		}
 		else{
 			Time.timeScale = 1;	//jegas
-			pausePanel.SetActive(paused);
-		
+			pausePanel.SetActive(!paused);
+			
 
 		}
 	}
@@ -98,11 +105,6 @@ public class Pauser : MonoBehaviour {
 	
 	
 }
-	
-	
-	
-	
-	
 	
 	
 
